@@ -5,7 +5,7 @@ from app.config import settings
 class CacheManager:
     def __init__(self):
         self.redis = Redis.from_url(settings.REDIS_URL, decode_responses=True)
-
+        
     async def get(self, key: str) -> dict:
         cached = await self.redis.get(f"email:{key}")
         return json.loads(cached) if cached else None
