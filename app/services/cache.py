@@ -21,3 +21,12 @@ class CacheManager:
 
     async def close(self):
         await self.redis.close()
+
+    # ---- Métodos nuevos para rate limiting ---- #
+    async def incr(self, key: str) -> int:
+        """Incrementa un contador en Redis y devuelve el nuevo valor"""
+        return await self.redis.incr(key)
+
+    async def expire(self, key: str, seconds: int) -> None:
+        """Establece un tiempo de expiración para una clave"""
+        await self.redis.expire(key, seconds)
